@@ -1,40 +1,115 @@
 {
     "questions": [
         {
-            "eng": "",
-            "mao": ""
+            "eng": "love",
+            "mao": "aroha"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "river",
+            "mao": "awa"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "food",
+            "mao": "kai"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "tribe",
+            "mao": "iwi"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "prayer",
+            "mao": "karakia"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "elder",
+            "mao": "kaumatua"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "walk",
+            "mao": "hīkoi"
         },
         
+        {
+            "eng": "mountain",
+            "mao": "maunga"
+        },
+
+        {
+            "eng": "sea",
+            "mao": "moana"
+        },
+
+        {
+            "eng": "island",
+            "mao": "motu"
+        },
+        
+        {
+            "eng": "children",
+            "mao": "tamariki"
+        },
+
+        {
+            "eng": "small",
+            "mao": "iti"
+        },
+
+        {
+            "eng": "family",
+            "mao": "whānau"
+        },
+        
+        {
+            "eng": "hello",
+            "mao": "kia ora"
+        },
+
+        {
+            "eng": "",
+            "mao": ""
+        },
+
+        {
+            "eng": "",
+            "mao": ""
+        },
+
+        {
+            "eng": "",
+            "mao": ""
+        },
+
+        {
+            "eng": "",
+            "mao": ""
+        },
+
+        {
+            "eng": "",
+            "mao": ""
+        },
+
+        {
+            "eng": "",
+            "mao": ""
+        },
+
+        {
+            "eng": "",
+            "mao": ""
+        },
+
+        {
+            "eng": "",
+            "mao": ""
+        },
+
         {
             "eng": "",
             "mao": ""
