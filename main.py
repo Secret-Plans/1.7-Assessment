@@ -5,8 +5,27 @@ Damon Jones
 """
 
 
+# The Plan
+"""
+Maori word is presented and the English translation must be entered by the user
+to get the question right. I'd like to shuffle the list of questions. My end
+goal is to have twenty-five questions, with one quiz being ten questions long.
+The user will receive a grade of how well they did (x/10 marks) afterwards.
+Questions will probably be read from a json file to make them easier to edit.
+
+If a user gets a question wrong, they should receive some feedback to their
+answer. Probably just something along the lines of 'Wrong. Correct Answer is:'
+and then say the correct answer so they can learn for next time.
+"""
+
+
 # Imports
 import json
+import random
+
+
+# Constants
+DEBUG_TOOLS_ON = True
 
 
 # Functions
@@ -39,9 +58,60 @@ def check_translation(question : dict, english_input : str) -> bool:
 
 
 # Main Code
-def main():
-    questions = load_questions()
+def main() -> int:
+    """Function containing main code of program.
+
+    See C, C++, C#, Java etc. This function is the beginning of the program's
+    execution. It also returns status messages based on what caused the end of
+    the program's execution. See bottom of this file for the list of status
+    messages.
+
+    Returns:
+        int: A status message representing what caused the program to end
+        execution.
+    """
+    # File Loading
+    try:
+        questions = load_questions()
+    except FileNotFoundError:
+        return 2
+    except PermissionError:
+        return 3
+    except:
+        return 1
+    
+    
+    playing = True
+    while playing:
+        # Shuffle the questions into a random order and selects the top ten.
+        random.shuffle(questions)
+        quiz = questions[:10]
+
+
+        print(quiz)
+        input("...")
+
+
+    # Returns Ok in the case of successful execution.
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    status = main()
+
+
+    # Program Status Message Response
+    if DEBUG_TOOLS_ON:
+        print(f"Program exited with status: '{status}'")
+        input("Press enter to exit...")
+    
+    # Status Messages:
+    # 0: Ok
+    # 1: Unknown Error
+    # 2: File Not Found
+    # 3: File Not Permitted
+    # 4: Translation Check Error
+    # NOTE: These status messages aren't standardized, I just use them to help
+    # with debugging.
+    # NOTE: Remove status messages for final version, as they're not necessary
+    # for a public release.
