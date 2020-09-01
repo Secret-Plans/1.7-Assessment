@@ -2,6 +2,17 @@
 91883 Te Reo Quiz
 v0.1 - Boilerplate Code
 Damon Jones
+
+Updates:
+Just implemented the basics required for the test to work and some debug stuff
+to help me later. This includes a function that loads the test questions in
+from a json file. I'm choosing to use a json file as I find it's easier to
+navigate and edit than having it as a constant dictionary in the main file. All
+questions for the test have been added at this point (25), unless more are
+added down the line, which likely won't be necessary. Status messages will be
+removed for the final version. For the sake of debugging, the program runs in a
+loop that creates a quiz of ten randomly selected questions and prints them out
+every time the user presses enter.
 """
 
 
