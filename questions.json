@@ -32,7 +32,7 @@
 
         {
             "eng": "walk",
-            "mao": "hīkoi"
+            "mao": "hikoi"
         },
         
         {
@@ -62,7 +62,7 @@
 
         {
             "eng": "family",
-            "mao": "whānau"
+            "mao": "whanau"
         },
         
         {
@@ -71,58 +71,58 @@
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "welcome",
+            "mao": "nau mai"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "visitors",
+            "mao": "manuhiri"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "gift",
+            "mao": "koha"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "son",
+            "mao": "tama"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "daughter",
+            "mao": "tamahine"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "heart",
+            "mao": "manawa"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "relatives",
+            "mao": "whanaunga"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "canoe",
+            "mao": "waka"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "water",
+            "mao": "wai"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "small",
+            "mao": "iti"
         },
 
         {
-            "eng": "",
-            "mao": ""
+            "eng": "large",
+            "mao": "nui"
         }
     ]
 }
