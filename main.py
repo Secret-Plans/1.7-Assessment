@@ -99,7 +99,9 @@ def main() -> int:
         quiz = questions[:10]
 
 
-        print(quiz)
+        for question in quiz:
+            print(f"{str(question['eng']).ljust(12)}{question['mao']}")
+        
         input("...")
 
 
