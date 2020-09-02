@@ -84,12 +84,10 @@ def main() -> int:
     # File Loading
     try:
         questions = load_questions()
-    except FileNotFoundError:
-        return 2
-    except PermissionError:
-        return 3
     except:
-        return 1
+        print("Fatal error! Questions could not be loaded")
+        input("Press enter to continue...")
+        return
     
     
     playing = True
@@ -97,34 +95,38 @@ def main() -> int:
         # Shuffle the questions into a random order and selects the top ten.
         random.shuffle(questions)
         quiz = questions[:10]
+        questions_correct = 0
+        responses = []
 
 
+        # Start Quiz
         for question in quiz:
-            print(f"{str(question['eng']).ljust(12)}{question['mao']}")
+            # Show user maori word and get the user's english translation
+            print(question["mao"])
+            user_input = input("Enter English Translation: ").lower()
+            while not user_input.isalpha() and user_input != "":
+                print("Please enter alphabetic characters only...")
+                user_input = input("Enter English Translation: ").lower()
+            print()
+
+            # Add user input to list to display stats later
+            responses.append(user_input)
+
+            # Check if question is correct
+            correct = check_translation(question, user_input)
+            if correct:
+                questions_correct += 1
+                print("Correct!")
+            else:
+                print("Incorrect!")
+                print(f"The correct answer is {question['eng']}")
+            print()
         
-        input("...")
-
-
-    # Returns Ok in the case of successful execution.
-    return 0
+        # Print Results
+        print(f"You got {questions_correct}/10 questions correct!")
+        
+        input("Press Enter to Continue...")
 
 
 if __name__ == '__main__':
-    status = main()
-
-
-    # Program Status Message Response
-    if DEBUG_TOOLS_ON:
-        print(f"Program exited with status: '{status}'")
-        input("Press enter to exit...")
-    
-    # Status Messages:
-    # 0: Ok
-    # 1: Unknown Error
-    # 2: File Not Found
-    # 3: File Not Permitted
-    # 4: Translation Check Error
-    # NOTE: These status messages aren't standardized, I just use them to help
-    # with debugging.
-    # NOTE: Remove status messages for final version, as they're not necessary
-    # for a public release.
+    main()
