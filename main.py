@@ -1,18 +1,19 @@
 """
 91883 Te Reo Quiz
-v0.1 - Boilerplate Code
+v0.2 - The Actual Quiz Part
 Damon Jones
 
 Updates:
-Just implemented the basics required for the test to work and some debug stuff
-to help me later. This includes a function that loads the test questions in
-from a json file. I'm choosing to use a json file as I find it's easier to
-navigate and edit than having it as a constant dictionary in the main file. All
-questions for the test have been added at this point (25), unless more are
-added down the line, which likely won't be necessary. Status messages will be
-removed for the final version. For the sake of debugging, the program runs in a
-loop that creates a quiz of ten randomly selected questions and prints them out
-every time the user presses enter.
+Added the actual quiz part. The quiz is created in a function called create
+quiz, which randomly picks ten questions from the pool of questions and returns
+the finished list. Another question, play quiz, takes these questions are
+presents them to the user one at a time. If the user gets a question incorrect,
+the program gives feedback. This uses the check translation function, which
+checks if the user input is equal to the correct translation of the maori word.
+The number of questions correct is displayed at the end.
+
+Done vigorous testing on checking the user input to make sure it's working
+correctly, and it is.
 """
 
 
@@ -35,10 +36,6 @@ import json
 import random
 
 
-# Constants
-DEBUG_TOOLS_ON = True
-
-
 # Functions
 def load_questions() -> list:
     """Loads list of questions from json file.
@@ -55,6 +52,21 @@ def load_questions() -> list:
     return questions_dict["questions"]
 
 
+def create_quiz(questions : list, size : int = 10) -> list:
+    """Shuffles the list of questions and returns the amount that the quiz should have (ten generally).
+
+    Args:
+        questions (list): The pool of questions to select from for the quiz.
+        size (int, optional): The size of the quiz. Defaults to 10.
+
+    Returns:
+        list: The list of questions to be used in the quiz.
+    """
+    random.shuffle(questions)
+    quiz = questions[:size]
+    return quiz
+
+
 def check_translation(question : dict, english_input : str) -> bool:
     """Shorthand for checking the English input is the correct translation.
 
@@ -68,20 +80,47 @@ def check_translation(question : dict, english_input : str) -> bool:
     return english_input == question["eng"]
 
 
-# Main Code
-def main() -> int:
-    """Function containing main code of program.
+def play_quiz(questions : list) -> int:
+    """Plays through the quiz.
 
-    See C, C++, C#, Java etc. This function is the beginning of the program's
-    execution. It also returns status messages based on what caused the end of
-    the program's execution. See bottom of this file for the list of status
-    messages.
+    Args:
+        questions (list): List of questions in the quiz.
 
     Returns:
-        int: A status message representing what caused the program to end
-        execution.
+        int: Amount of questions gotten correctly.
     """
-    # File Loading
+    questions_correct = 0
+
+    # Iterate over every question in the test
+    for question in questions:
+        # Show user maori word and get the user's english translation
+        print(question["mao"])
+        user_input = input("Enter English Translation: ").lower()
+
+        # Ensure user input is valid
+        while not user_input.isalpha() and user_input != "":
+            print("Please enter alphabetic characters only...")
+            user_input = input("Enter English Translation: ").lower()
+        print()
+
+
+        # Check if question is correct
+        correct = check_translation(question, user_input)
+        if correct:
+            questions_correct += 1
+            print("Correct!")
+        else:
+            print("Incorrect!")
+            print(f"The correct answer is {question['eng']}")
+        print()
+    
+    return questions_correct
+
+
+# Main Code
+def main() -> int:
+    """Function containing main code of program."""
+    # Load list of questions
     try:
         questions = load_questions()
     except:
@@ -90,40 +129,15 @@ def main() -> int:
         return
     
     
+    # The actual quiz part
     playing = True
     while playing:
-        # Shuffle the questions into a random order and selects the top ten.
-        random.shuffle(questions)
-        quiz = questions[:10]
-        questions_correct = 0
-        responses = []
-
-
-        # Start Quiz
-        for question in quiz:
-            # Show user maori word and get the user's english translation
-            print(question["mao"])
-            user_input = input("Enter English Translation: ").lower()
-            while not user_input.isalpha() and user_input != "":
-                print("Please enter alphabetic characters only...")
-                user_input = input("Enter English Translation: ").lower()
-            print()
-
-            # Add user input to list to display stats later
-            responses.append(user_input)
-
-            # Check if question is correct
-            correct = check_translation(question, user_input)
-            if correct:
-                questions_correct += 1
-                print("Correct!")
-            else:
-                print("Incorrect!")
-                print(f"The correct answer is {question['eng']}")
-            print()
+        # Create a list of questions and play them
+        quiz = create_quiz(questions)
+        questions_correct = play_quiz(quiz)
         
         # Print Results
-        print(f"You got {questions_correct}/10 questions correct!")
+        print(f"You got {questions_correct}/{len(quiz)} questions correct!")
         
         input("Press Enter to Continue...")
 
