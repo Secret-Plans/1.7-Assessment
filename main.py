@@ -1,19 +1,14 @@
 """
 91883 Te Reo Quiz
-v0.2 - The Actual Quiz Part
+v0.3 - Adding a Title Screen and Polishing
 Damon Jones
 
 Updates:
-Added the actual quiz part. The quiz is created in a function called create
-quiz, which randomly picks ten questions from the pool of questions and returns
-the finished list. Another question, play quiz, takes these questions are
-presents them to the user one at a time. If the user gets a question incorrect,
-the program gives feedback. This uses the check translation function, which
-checks if the user input is equal to the correct translation of the maori word.
-The number of questions correct is displayed at the end.
-
-Done vigorous testing on checking the user input to make sure it's working
-correctly, and it is.
+Added a title screen, some instructions for the quiz displayed at the beginning
+and a restart screen at the end, prompting the user if they want to play again.
+Also just worked on some polishing, such as capitalizing questions, adding
+question numbers and making things more readable overall. I fixed a duplicate
+question that was present before too.
 """
 
 
@@ -34,6 +29,22 @@ and then say the correct answer so they can learn for next time.
 # Imports
 import json
 import random
+
+
+# Constants
+TITLE = """\
+=======================
+      Te Reo Quiz
+=======================
+"""
+
+QUIZ_INSTRUCTIONS = """\
+Welcome to the Te Reo Maori language quiz!
+You will be quizzed on the english translations to ten randomly
+selected Maori words. Enter the correct translation and you get the
+question correct. If you get it wrong, you'll receive the correct 
+answer so you can learn it for the next try!
+"""
 
 
 # Functions
@@ -90,11 +101,13 @@ def play_quiz(questions : list) -> int:
         int: Amount of questions gotten correctly.
     """
     questions_correct = 0
+    count = 1
+
 
     # Iterate over every question in the test
     for question in questions:
         # Show user maori word and get the user's english translation
-        print(question["mao"])
+        print(f"Question {count}: {question['mao'].capitalize()}")
         user_input = input("Enter English Translation: ").lower()
 
         # Ensure user input is valid
@@ -113,12 +126,13 @@ def play_quiz(questions : list) -> int:
             print("Incorrect!")
             print(f"The correct answer is {question['eng']}")
         print()
+        count += 1
     
     return questions_correct
 
 
 # Main Code
-def main() -> int:
+def main() -> None:
     """Function containing main code of program."""
     # Load list of questions
     try:
@@ -127,7 +141,16 @@ def main() -> int:
         print("Fatal error! Questions could not be loaded")
         input("Press enter to continue...")
         return
-    
+
+    # Title Screen
+    print(TITLE)
+    input("Press enter to start...")
+    print()
+
+    # Instructions Screen
+    print(QUIZ_INSTRUCTIONS)
+    input("Press enter to continue...")
+    print()
     
     # The actual quiz part
     playing = True
@@ -140,6 +163,7 @@ def main() -> int:
         print(f"You got {questions_correct}/{len(quiz)} questions correct!")
         
         input("Press Enter to Continue...")
+        print()
 
 
 if __name__ == '__main__':
