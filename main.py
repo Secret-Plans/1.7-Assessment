@@ -103,7 +103,6 @@ def play_quiz(questions : list) -> int:
     questions_correct = 0
     count = 1
 
-
     # Iterate over every question in the test
     for question in questions:
         # Show user maori word and get the user's english translation
@@ -115,7 +114,6 @@ def play_quiz(questions : list) -> int:
             print("Please enter alphabetic characters only...")
             user_input = input("Enter English Translation: ").lower()
         print()
-
 
         # Check if question is correct
         correct = check_translation(question, user_input)
@@ -129,6 +127,23 @@ def play_quiz(questions : list) -> int:
         count += 1
     
     return questions_correct
+
+
+def restart_prompt() -> bool:
+    """Gets user input for whether or not they want to play again.
+
+    Returns:
+        bool: Whether or not the player wants to play again.
+    """
+    # Ask user if they want to play again
+    user_in = input("Would you like to play again? [Y/N] ").lower()
+    while user_in not in ["y", "n"]:
+        print("Please only enter 'y' or 'n'...")
+        user_in = input("Would you like to play again? [Y/N] ").lower()
+    
+    if user_in == "y":
+        return True
+    return False
 
 
 # Main Code
@@ -161,8 +176,12 @@ def main() -> None:
         
         # Print Results
         print(f"You got {questions_correct}/{len(quiz)} questions correct!")
+        print("=======================")
         
-        input("Press Enter to Continue...")
+        # If player chooses to continue playing, loop will continue.
+        # Otherwise, loop closes and main() returns.
+        playing = restart_prompt()
+
         print()
 
 
