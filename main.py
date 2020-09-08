@@ -1,28 +1,15 @@
 """
 91883 Te Reo Quiz
-v0.3 - Adding a Title Screen and Polishing
+v1.0 - Final Version
 Damon Jones
 
 Updates:
-Added a title screen, some instructions for the quiz displayed at the beginning
-and a restart screen at the end, prompting the user if they want to play again.
-Also just worked on some polishing, such as capitalizing questions, adding
-question numbers and making things more readable overall. I fixed a duplicate
-question that was present before too.
-"""
-
-
-# The Plan
-"""
-Maori word is presented and the English translation must be entered by the user
-to get the question right. I'd like to shuffle the list of questions. My end
-goal is to have twenty-five questions, with one quiz being ten questions long.
-The user will receive a grade of how well they did (x/10 marks) afterwards.
-Questions will probably be read from a json file to make them easier to edit.
-
-If a user gets a question wrong, they should receive some feedback to their
-answer. Probably just something along the lines of 'Wrong. Correct Answer is:'
-and then say the correct answer so they can learn for next time.
+Original quiz plan removed from source file. All questions have been checked
+for assurance. Quiz prints a number of newlines when restarted to prevent user
+from seeing answers from previous quiz. Newlines are printed where it's useful
+for readability. All inputs are tested for expected and unexpected cases (I
+don't have any boundry cases as I haven't been working with inputs that would
+have any).
 """
 
 
@@ -36,7 +23,7 @@ TITLE = """\
 =======================
       Te Reo Quiz
 =======================
-"""
+""" #Text displayed for the quiz's title screen
 
 QUIZ_INSTRUCTIONS = """\
 Welcome to the Te Reo Maori language quiz!
@@ -44,7 +31,11 @@ You will be quizzed on the english translations to ten randomly
 selected Maori words. Enter the correct translation and you get the
 question correct. If you get it wrong, you'll receive the correct 
 answer so you can learn it for the next try!
-"""
+""" #Text displayed for the quiz's instructions
+
+#Whitespace displayed between menu/restart prompt and the quiz
+# Newlines are grouped in fives (30 newlines)
+BEGINNING_OF_QUIZ_WHITESPACE = "\n\n\n\n\n \n\n\n\n\n \n\n\n\n\n \n\n\n\n\n \n\n\n\n\n \n\n\n\n\n"
 
 
 # Functions
@@ -170,6 +161,9 @@ def main() -> None:
     # The actual quiz part
     playing = True
     while playing:
+        # Print whitespace between previous quiz and now for readibility
+        print(BEGINNING_OF_QUIZ_WHITESPACE)
+
         # Create a list of questions and play them
         quiz = create_quiz(questions)
         questions_correct = play_quiz(quiz)
