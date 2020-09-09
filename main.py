@@ -8,8 +8,13 @@ Original quiz plan removed from source file. All questions have been checked
 for assurance. Quiz prints a number of newlines when restarted to prevent user
 from seeing answers from previous quiz. Newlines are printed where it's useful
 for readability. All inputs are tested for expected and unexpected cases (I
-don't have any boundry cases as I haven't been working with inputs that would
-have any).
+don't have any boundary cases as I haven't been working with inputs that would
+have any). For safety reasons I also decided to move the questions dictionary
+from the json file into the main source file as a constant. This is due to some
+ide's treating the file's root directory differently and therefore causing
+issues with loading files. I don't really need to worry about the convenience
+of using a separate json file anymore so I'd rather the program is guaranteed
+to work. This caused the load_questions() function to become deprecated.
 """
 
 
@@ -37,23 +42,111 @@ answer so you can learn it for the next try!
 # Newlines are grouped in fives (30 newlines)
 BEGINNING_OF_QUIZ_WHITESPACE = "\n\n\n\n\n \n\n\n\n\n \n\n\n\n\n \n\n\n\n\n \n\n\n\n\n \n\n\n\n\n"
 
+QUESTIONS = [
+    {
+        "eng": "love",
+        "mao": "aroha"
+    },
+    {
+        "eng": "river",
+        "mao": "awa"
+    },
+    {
+        "eng": "food",
+        "mao": "kai"
+    },
+    {
+        "eng": "tribe",
+        "mao": "iwi"
+    },
+    {
+        "eng": "prayer",
+        "mao": "karakia"
+    },
+    {
+        "eng": "elder",
+        "mao": "kaumatua"
+    },
+    {
+        "eng": "walk",
+        "mao": "hikoi"
+    },
+    {
+        "eng": "mountain",
+        "mao": "maunga"
+    },
+    {
+        "eng": "sea",
+        "mao": "moana"
+    },
+    {
+        "eng": "island",
+        "mao": "motu"
+    },
+    {
+        "eng": "children",
+        "mao": "tamariki"
+    },
+    {
+        "eng": "lake",
+        "mao": "roto"
+    },
+    {
+        "eng": "family",
+        "mao": "whanau"
+    },
+    {
+        "eng": "hello",
+        "mao": "kia ora"
+    },
+    {
+        "eng": "welcome",
+        "mao": "nau mai"
+    },
+    {
+        "eng": "visitors",
+        "mao": "manuhiri"
+    },
+    {
+        "eng": "gift",
+        "mao": "koha"
+    },
+    {
+        "eng": "son",
+        "mao": "tama"
+    },
+    {
+        "eng": "daughter",
+        "mao": "tamahine"
+    },
+    {
+        "eng": "heart",
+        "mao": "manawa"
+    },
+    {
+        "eng": "relatives",
+        "mao": "whanaunga"
+    },
+    {
+        "eng": "canoe",
+        "mao": "waka"
+    },
+    {
+        "eng": "water",
+        "mao": "wai"
+    },
+    {
+        "eng": "small",
+        "mao": "iti"
+    },
+    {
+        "eng": "large",
+        "mao": "nui"
+    }
+]
+
 
 # Functions
-def load_questions() -> list:
-    """Loads list of questions from json file.
-
-    The list is filled with questions, which are stored in the format of a
-    dictionary with an English and Maori word/phrase of the same meaning.
-
-    Returns:
-        list: List of questions.
-    """
-    questions_dict = {}
-    with open("questions.json", "r") as f:
-        questions_dict = json.load(f)
-    return questions_dict["questions"]
-
-
 def create_quiz(questions : list, size : int = 10) -> list:
     """Shuffles the list of questions and returns the amount that the quiz should have (ten generally).
 
@@ -140,24 +233,18 @@ def restart_prompt() -> bool:
 # Main Code
 def main() -> None:
     """Function containing main code of program."""
-    # Load list of questions
-    try:
-        questions = load_questions()
-    except:
-        print("Fatal error! Questions could not be loaded")
-        input("Press enter to continue...")
-        return
-
     # Title Screen
     print(TITLE)
     input("Press enter to start...")
     print()
+
 
     # Instructions Screen
     print(QUIZ_INSTRUCTIONS)
     input("Press enter to continue...")
     print()
     
+
     # The actual quiz part
     playing = True
     while playing:
@@ -165,7 +252,7 @@ def main() -> None:
         print(BEGINNING_OF_QUIZ_WHITESPACE)
 
         # Create a list of questions and play them
-        quiz = create_quiz(questions)
+        quiz = create_quiz(QUESTIONS)
         questions_correct = play_quiz(quiz)
         
         # Print Results
